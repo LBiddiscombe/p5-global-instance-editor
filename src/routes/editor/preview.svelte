@@ -1,0 +1,49 @@
+<script lang="ts">
+	import P5, { type Sketch } from 'p5-svelte';
+	import p5 from 'p5';
+	import { PlayCircle, StopCircle } from 'lucide-svelte';
+
+	export let sketch: Sketch;
+	let isPlaying = true;
+	let p5Instance;
+	let p5Ref: HTMLDivElement;
+
+	$: console.log(`p5 Version: ${p5.prototype.VERSION}`);
+
+	function gotRef(e: CustomEvent) {
+		p5Ref = e.detail;
+	}
+
+	function gotInstance(e: CustomEvent) {
+		p5Instance = e.detail;
+		const parentNode = p5Ref;
+		const container = parentNode.parentNode as HTMLDivElement;
+		if (!p5Instance || !parentNode || !container) return;
+
+		const { width: maxWidth, height: maxHeight } = container.getBoundingClientRect();
+
+		p5Instance.width = Math.min(maxWidth, p5Instance.width);
+		p5Instance.height = Math.min(maxHeight, p5Instance.height);
+		p5Instance._start();
+	}
+</script>
+
+<div class="h-full flex flex-col">
+	<button
+		on:click={() => (isPlaying = !isPlaying)}
+		class="max-w-fit rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all m-2 shadow-[2px_2px_#282825] border border-[#282825]"
+	>
+		{#if isPlaying}
+			<StopCircle size={48} strokeWidth={1} absoluteStrokeWidth={true} />
+		{:else}
+			<PlayCircle size={48} strokeWidth={1} absoluteStrokeWidth={true} />
+		{/if}
+	</button>
+	{#key sketch}
+		{#if isPlaying}
+			<div class="py-2 flex justify-center items-center flex-grow overflow-hidden">
+				<P5 {sketch} debug={true} on:ref={gotRef} on:instance={gotInstance} />
+			</div>
+		{/if}
+	{/key}
+</div>
