@@ -12,7 +12,7 @@
 				<img src="https://i.pravatar.cc/100" alt="random avatar face" />
 			</div>
 		</div>
-		<div class="chat-bubble bg-green-200 text-gray-600 w-64">
+		<div class="chat-bubble bg-green-200 text-gray-600 w-80">
 			{@html question}
 		</div>
 	</div>
@@ -22,7 +22,7 @@
 				<img src="/my-avatar.jpeg" alt="my random avatar face" />
 			</div>
 		</div>
-		<div class="chat-bubble text-gray-500 bg-blue-100 w-64">
+		<div class="chat-bubble text-gray-500 bg-blue-100 w-80">
 			{@html answer}
 		</div>
 	</div>

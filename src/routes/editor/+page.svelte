@@ -42,7 +42,7 @@
 	}
 </script>
 
-<div class="flex flex-col h-screen p-4 gap-4 text-base-300">
+<div class="flex flex-col h-screen p-4 gap-4 text-base-content">
 	<div class="flex justify-between items-center">
 		<a
 			href="/"
@@ -50,7 +50,7 @@
 		>
 			<Home size={32} strokeWidth={1} absoluteStrokeWidth={true} />
 		</a>
-		<h1 class="p-4 text-3xl font-bold h-16">
+		<h1 class="p-4 text-3xl font-bold">
 			<Logo /> global to instance editor
 		</h1>
 		<div class="invisible">
@@ -80,18 +80,16 @@
 		</div>
 
 		<div class="flex flex-col overflow-auto h-full">
-			<div class="tabs bg-inherit pl-10 mt-[6.5px] translate-y-[5px]">
+			<div class="tabs tabs-boxed bg-inherit pl-5 -mt-[4px]">
 				<button
-					class="tab tab-lifted"
+					class="tab"
 					on:click={() => (isEditorActive = true)}
-					class:tab-active={isEditorActive}
-					class:text-white={isEditorActive}>Output Sketch (instance | readonly)</button
+					class:tab-active={isEditorActive}>Output Sketch (instance | readonly)</button
 				>
 				<button
-					class="tab tab-lifted flex gap-2"
+					class="tab flex gap-1"
 					on:click={() => (isEditorActive = false)}
-					class:tab-active={!isEditorActive}
-					class:text-white={!isEditorActive}><PlayCircle />Sketch Preview</button
+					class:tab-active={!isEditorActive}><PlayCircle strokeWidth={1} />Sketch Preview</button
 				>
 			</div>
 			<div class="border border-black flex-grow rounded-2xl flat-shadow m-1 overflow-auto">
@@ -119,5 +117,5 @@
 			</div>
 		</div>
 	</div>
-	<div class="p-4 h-16 flex justify-center" />
+	<!-- <div class="p-4 h-16 flex justify-center" /> -->
 </div>
