@@ -5,7 +5,7 @@
 
 	export let sketch: Sketch;
 	let isPlaying = true;
-	let p5Instance;
+	let p5Instance: P5;
 	let p5Ref: HTMLDivElement;
 
 	$: console.log(`p5 Version: ${p5.prototype.VERSION}`);

@@ -15,27 +15,17 @@
 	let sketch: Sketch;
 	let output: string | undefined;
 
-	async function checkConverter() {
-		const input = 'function setup() {};';
-		const output = 'p.setup = function () {};';
-		const result = await convert(input, instance);
-
-		console.log({ input }, { output }, { result });
-	}
-
 	$: convert(input, instance).then((result) => {
-		console.log({ result });
 		return (output = result ?? '');
 	});
 	$: {
 		if (output) {
-			checkConverter();
 			isEditorActive = true;
 			try {
 				sketch = new Function(instance, output) as Sketch;
 			} catch (error) {
 				if (error instanceof Error) {
-					output = `// Error in wrapping as instance sketch: ${error.message}`;
+					output = `// Error wrapping as instance sketch: ${error.message}`;
 				}
 			}
 		}
