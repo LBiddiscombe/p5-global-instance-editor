@@ -2,34 +2,20 @@
 	import CodeMirror from 'svelte-codemirror-editor';
 	import { javascript } from '@codemirror/lang-javascript';
 	import { clouds } from 'thememirror';
-	import { convert } from '$lib/converter-babel';
 	import { starterCode } from './starter-code';
 	import type { Sketch } from 'p5-svelte';
 	import Logo from '$lib/components/p5-logo.svelte';
 	import { PlayCircle, Home, Info } from 'lucide-svelte';
 	import Preview from './preview.svelte';
+	import { inputStore, outputStore } from '$lib/stores/codeStore';
+	import { onMount } from 'svelte';
 
-	const instance = 'p';
 	let isEditorActive = true;
-	let input = starterCode;
 	let sketch: Sketch;
-	let output: string | undefined;
 
-	$: convert(input, instance).then((result) => {
-		return (output = result ?? '');
+	onMount(() => {
+		inputStore.set(starterCode);
 	});
-	$: {
-		if (output) {
-			isEditorActive = true;
-			try {
-				sketch = new Function(instance, output) as Sketch;
-			} catch (error) {
-				if (error instanceof Error) {
-					output = `// Error wrapping as instance sketch: ${error.message}`;
-				}
-			}
-		}
-	}
 </script>
 
 <div class="flex flex-col h-screen p-4 gap-4 text-base-content">
@@ -53,7 +39,7 @@
 			<p class="h-10 flex items-center text-sm px-1">Input Sketch (global)</p>
 			<div class="border border-black h-full rounded-2xl flat-shadow m-1 overflow-auto">
 				<CodeMirror
-					bind:value={input}
+					bind:value={$inputStore}
 					lang={javascript()}
 					theme={clouds}
 					class="h-full"
@@ -83,29 +69,30 @@
 				>
 			</div>
 			<div class="border border-black flex-grow rounded-2xl flat-shadow m-1 overflow-auto">
-				{#if isEditorActive}
-					<CodeMirror
-						bind:value={output}
-						lang={javascript()}
-						readonly
-						basic={false}
-						theme={clouds}
-						class="h-full"
-						styles={{
-							'&': {
-								height: '100%',
-								overflow: 'auto',
-								borderRadius: '1rem',
-								padding: '0.5rem',
-								background: '#FFFFFF77'
-							}
-						}}
-					/>
-				{:else if output}
-					<Preview {sketch} />
-				{/if}
+				{#await $outputStore then output}
+					{#if isEditorActive}
+						<CodeMirror
+							value={output}
+							lang={javascript()}
+							readonly
+							basic={false}
+							theme={clouds}
+							class="h-full"
+							styles={{
+								'&': {
+									height: '100%',
+									overflow: 'auto',
+									borderRadius: '1rem',
+									padding: '0.5rem',
+									background: '#FFFFFF77'
+								}
+							}}
+						/>
+					{:else if output}
+						<Preview {output} />
+					{/if}
+				{/await}
 			</div>
 		</div>
 	</div>
-	<!-- <div class="p-4 h-16 flex justify-center" /> -->
 </div>

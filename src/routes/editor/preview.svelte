@@ -2,11 +2,26 @@
 	import P5, { type Sketch } from 'p5-svelte';
 	import p5 from 'p5';
 	import { PlayCircle, StopCircle } from 'lucide-svelte';
+	import { onMount } from 'svelte';
+	import { instance } from '$lib/stores/codeStore';
 
-	export let sketch: Sketch;
+	export let output: string;
+	let sketch: Sketch;
 	let isPlaying = true;
 	let p5Instance: P5;
 	let p5Ref: HTMLDivElement;
+
+	onMount(() => {
+		if (output) {
+			try {
+				sketch = new Function(instance, output) as Sketch;
+			} catch (error) {
+				if (error instanceof Error) {
+					console.log(`// Error wrapping as instance sketch: ${error.message}`);
+				}
+			}
+		}
+	});
 
 	$: console.log(`p5 Version: ${p5.prototype.VERSION}`);
 
@@ -39,11 +54,13 @@
 			<PlayCircle size={48} strokeWidth={1} absoluteStrokeWidth={true} />
 		{/if}
 	</button>
-	{#key sketch}
-		{#if isPlaying}
-			<div class="py-2 flex justify-center items-center flex-grow overflow-hidden">
-				<P5 {sketch} debug={true} on:ref={gotRef} on:instance={gotInstance} />
-			</div>
-		{/if}
-	{/key}
+	{#if sketch}
+		{#key sketch}
+			{#if isPlaying}
+				<div class="py-2 flex justify-center items-center flex-grow overflow-hidden">
+					<P5 {sketch} debug={true} on:ref={gotRef} on:instance={gotInstance} />
+				</div>
+			{/if}
+		{/key}
+	{/if}
 </div>
