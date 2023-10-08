@@ -40,11 +40,11 @@ export async function convert(code: string, instance: string) {
       ],
     });
 
-    return output.code;
+    return output.code ?? '';
 
   } catch (error) {
     if (error instanceof Error) {
-      return `// Parse error in conversion: ${error.message}`;
+      throw new Error(error.message)
     }
   }
 

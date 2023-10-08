@@ -5,16 +5,18 @@
 	import { starterCode } from './starter-code';
 	import type { Sketch } from 'p5-svelte';
 	import Logo from '$lib/components/p5-logo.svelte';
-	import { PlayCircle, Home, Info } from 'lucide-svelte';
+	import { PlayCircle, Home, Info, AlertOctagon } from 'lucide-svelte';
 	import Preview from './preview.svelte';
-	import { inputStore, outputStore } from '$lib/stores/codeStore';
+	import { inputStore, outputStore, inputError } from '$lib/stores/codeStore';
 	import { onMount } from 'svelte';
 
 	let isEditorActive = true;
 	let sketch: Sketch;
 
 	onMount(() => {
-		inputStore.set(starterCode);
+		if ($inputStore === '') {
+			inputStore.set(starterCode);
+		}
 	});
 </script>
 
@@ -94,5 +96,12 @@
 				{/await}
 			</div>
 		</div>
+	</div>
+	<div class="text-xs">
+		{#if $inputError}
+			<span class="font-mono flex gap-2 items-center bg-red-500 text-white px-2 py-1"
+				><AlertOctagon size={16} />{$inputError}</span
+			>
+		{/if}
 	</div>
 </div>
