@@ -10,6 +10,10 @@
 	import { inputStore, outputStore, inputError } from '$lib/stores/codeStore';
 	import { onMount } from 'svelte';
 
+	export let data;
+
+	console.log(data);
+
 	let isEditorActive = true;
 	let sketch: Sketch;
 
@@ -36,9 +40,24 @@
 		</div>
 	</div>
 
-	<div class="grid lg:grid-cols-2 gap-4 flex-grow overflow-auto">
+	<div class="grid lg:grid-cols-[auto_1fr_1fr] gap-4 flex-grow overflow-auto">
+		<div class="flex flex-col overflow-auto">
+			<p class="h-10 flex items-center text-sm px-1">Examples</p>
+			<ul class="flex flex-col overflow-auto h-full">
+				{#each data.examples as example}
+					<li>
+						<button class="btn btn-xs" on:click={() => inputStore.set(example.input)}
+							>{example.name}</button
+						>
+					</li>
+				{/each}
+			</ul>
+		</div>
+
 		<div class="flex flex-col overflow-auto h-full">
-			<p class="h-10 flex items-center text-sm px-1">Input Sketch (global)</p>
+			<div class="flex gap-2">
+				<p class="h-10 flex items-center text-sm px-1">Input Sketch (global)</p>
+			</div>
 			<div class="border border-black h-full rounded-2xl flat-shadow m-1 overflow-auto">
 				<CodeMirror
 					bind:value={$inputStore}

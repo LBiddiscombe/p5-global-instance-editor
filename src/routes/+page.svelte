@@ -3,7 +3,7 @@
 	import Logo from '$lib/components/p5-logo.svelte';
 </script>
 
-<div class="container mx-auto h-screen relative py-8 flex flex-col overflow-hidden">
+<div class="container mx-auto h-screen relative py-[8vh] flex flex-col overflow-hidden">
 	<div
 		class="px-4 py-8 max-w-xl mx-auto flex flex-col bg-white flat-shadow border border-[#282825] rounded-2xl"
 	>

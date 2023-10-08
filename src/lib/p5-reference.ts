@@ -333,6 +333,7 @@ const p5vars = [
   'QUAD_STRIP',
   'TESS',
   'RADIUS',
+  'SQUARE',
 
   // Environment
   'frameCount',
