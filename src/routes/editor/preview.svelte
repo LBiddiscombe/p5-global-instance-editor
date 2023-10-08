@@ -3,7 +3,7 @@
 	import p5 from 'p5';
 	import { PlayCircle, StopCircle } from 'lucide-svelte';
 	import { onMount } from 'svelte';
-	import { instance } from '$lib/stores/codeStore';
+	import { instance, inputError } from '$lib/stores/codeStore';
 
 	export let output: string;
 	let sketch: Sketch;
@@ -11,16 +11,27 @@
 	let p5Instance: P5;
 	let p5Ref: HTMLDivElement;
 
+	const handleError = (error: ErrorEvent) => {
+		error.preventDefault();
+		inputError.set(error.message);
+	};
+
 	onMount(() => {
 		if (output) {
 			try {
 				sketch = new Function(instance, output) as Sketch;
 			} catch (error) {
 				if (error instanceof Error) {
-					console.log(`// Error wrapping as instance sketch: ${error.message}`);
+					inputError.set(error.message);
 				}
 			}
 		}
+
+		window.addEventListener('error', handleError);
+
+		return () => {
+			window.removeEventListener('error', handleError);
+		};
 	});
 
 	$: console.log(`p5 Version: ${p5.prototype.VERSION}`);
@@ -43,10 +54,10 @@
 	}
 </script>
 
-<div class="h-full flex flex-col">
+<div class="h-full flex flex-col relative">
 	<button
 		on:click={() => (isPlaying = !isPlaying)}
-		class="max-w-fit rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all m-2 shadow-[2px_2px_#282825] border border-[#282825]"
+		class="absolute max-w-fit rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all m-2 shadow-[2px_2px_#282825] border border-[#282825]"
 	>
 		{#if isPlaying}
 			<StopCircle size={48} strokeWidth={1} absoluteStrokeWidth={true} />
@@ -58,7 +69,13 @@
 		{#key sketch}
 			{#if isPlaying}
 				<div class="py-2 flex justify-center items-center flex-grow overflow-hidden">
-					<P5 {sketch} debug={true} on:ref={gotRef} on:instance={gotInstance} />
+					<P5
+						{sketch}
+						parentDivStyle="border: 1px solid #000"
+						debug={false}
+						on:ref={gotRef}
+						on:instance={gotInstance}
+					/>
 				</div>
 			{/if}
 		{/key}
