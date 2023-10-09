@@ -1,6 +1,6 @@
 const res = 8;
 let xoff = 0;
-let yoff = 1.5;
+let yoff = 2.5;
 let prevSy;
 
 let wave = [];
@@ -34,9 +34,9 @@ function generateWave(sy) {
   wave.push({ x: width, y: height });
   wave.push({ x: 0, y: height });
   for (let x = 0; x < width + res; x += res) {
-    let y = height + height / 8;
-    let ny = (noise((x + xoff) / 200) * sy * height) / 1 - height / 4;
-    let cy = (cos(((x + yoff * 100) / width) * 4) * height) / 8;
+    const y = height + height / 8;
+    const ny = (noise((x + xoff) / 200) * sy * height) / 1 - height / 4;
+    const cy = (cos(((x + yoff * 100) / width) * 4) * height) / 8;
 
     wave.push({ x, y: y + ny + cy });
   }

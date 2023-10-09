@@ -43,9 +43,9 @@
 	<div class="grid lg:grid-cols-[auto_1fr_1fr] gap-4 flex-grow overflow-auto">
 		<div class="flex flex-col overflow-auto">
 			<p class="h-10 flex items-center text-sm px-1">Examples</p>
-			<ul class="flex flex-col overflow-auto h-full mt-4">
+			<ul class="flex flex-col overflow-auto h-full mt-4 gap-2">
 				{#each data.examples as example}
-					<li class="self-end">
+					<li class="self-start border border-base-content rounded">
 						<button class="btn btn-xs" on:click={() => inputStore.set(example.input)}
 							>{example.name}</button
 						>
@@ -77,7 +77,7 @@
 		</div>
 
 		<div class="flex flex-col overflow-auto h-full">
-			<div class="tabs tabs-boxed bg-inherit pl-5 -mt-[4px]">
+			<div class="tabs tabs-boxed bg-inherit pl-5 h-10">
 				<button
 					class="tab"
 					on:click={() => (isEditorActive = true)}
