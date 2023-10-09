@@ -27,6 +27,7 @@
 		"eslint": "^8.50.0",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-svelte": "^2.34.0",
+		"p5-svelte": "^3.1.2",
 		"postcss": "^8.4.31",
 		"postcss-load-config": "^4.0.1",
 		"prettier": "^3.0.3",
@@ -44,7 +45,6 @@
 		"@babel/standalone": "^7.23.1",
 		"@codemirror/lang-javascript": "^6.2.1",
 		"lucide-svelte": "^0.284.0",
-		"p5-svelte": "^3.1.2",
 		"svelte-codemirror-editor": "^1.1.0",
 		"svelte-legos": "^0.2.2",
 		"thememirror": "^2.0.1"
