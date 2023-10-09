@@ -43,9 +43,9 @@
 	<div class="grid lg:grid-cols-[auto_1fr_1fr] gap-4 flex-grow overflow-auto">
 		<div class="flex flex-col overflow-auto">
 			<p class="h-10 flex items-center text-sm px-1">Examples</p>
-			<ul class="flex flex-col overflow-auto h-full">
+			<ul class="flex flex-col overflow-auto h-full mt-4">
 				{#each data.examples as example}
-					<li>
+					<li class="self-end">
 						<button class="btn btn-xs" on:click={() => inputStore.set(example.input)}
 							>{example.name}</button
 						>

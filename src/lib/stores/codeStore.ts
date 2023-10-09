@@ -4,7 +4,7 @@ import { convert } from "$lib/converter-babel";
 
 let previousOutput: string;
 
-export const instance = 'p';
+export const instance = '_p5';
 export const inputStore = storage(writable(''), 'input');
 export const inputError = writable('');
 export const outputStore = derived([inputStore], async ([$input]) => {

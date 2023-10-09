@@ -8,8 +8,8 @@
 	export let output: string;
 	let sketch: Sketch;
 	let isPlaying = true;
-	let p5Instance: P5;
-	let p5Ref: HTMLDivElement;
+	let p5Instance: P5 | undefined;
+	let p5Ref: HTMLDivElement | undefined;
 
 	const handleError = (error: ErrorEvent) => {
 		error.preventDefault();
@@ -31,8 +31,24 @@
 
 		return () => {
 			window.removeEventListener('error', handleError);
+			if (p5Ref && p5Instance) {
+				p5Instance.remove();
+				p5Instance = undefined;
+				p5Ref.remove();
+				p5Ref = undefined;
+			}
 		};
 	});
+
+	function togglePlaying() {
+		isPlaying = !isPlaying;
+		if (!isPlaying && p5Ref && p5Instance) {
+			p5Instance.remove();
+			p5Instance = undefined;
+			p5Ref.remove();
+			p5Ref = undefined;
+		}
+	}
 
 	$: console.log(`p5 Version: ${p5.prototype.VERSION}`);
 
@@ -43,7 +59,7 @@
 	function gotInstance(e: CustomEvent) {
 		p5Instance = e.detail;
 		const parentNode = p5Ref;
-		const container = parentNode.parentNode as HTMLDivElement;
+		const container = parentNode && (parentNode.parentNode as HTMLDivElement);
 		if (!p5Instance || !parentNode || !container) return;
 
 		const { width: maxWidth, height: maxHeight } = container.getBoundingClientRect();
@@ -56,7 +72,7 @@
 
 <div class="h-full flex flex-col relative">
 	<button
-		on:click={() => (isPlaying = !isPlaying)}
+		on:click={togglePlaying}
 		class="absolute max-w-fit rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all m-2 shadow-[2px_2px_#282825] border border-[#282825]"
 	>
 		{#if isPlaying}
