@@ -34,8 +34,8 @@ function generateWave(sy) {
   wave.push({ x: width, y: height });
   wave.push({ x: 0, y: height });
   for (let x = 0; x < width + res; x += res) {
-    let y = height + height / 4;
-    let ny = (noise((x + xoff) / 200) * sy * height) / 1.2 - height / 4;
+    let y = height + height / 8;
+    let ny = (noise((x + xoff) / 200) * sy * height) / 1 - height / 4;
     let cy = (cos(((x + yoff * 100) / width) * 4) * height) / 8;
 
     wave.push({ x, y: y + ny + cy });
@@ -58,12 +58,4 @@ function drawWave(points, col, yoffset = 0) {
   }
   fill(col);
   endShape(CLOSE);
-
-  foamColor = yoffset === 0 ? 255 : col;
-  fill(foamColor);
-  for (let p of points) {
-    if (p.y < height) {
-      circle(p.x, p.y + yoffset / 2, map(yoffset, 0, height / 4, res, res * 2));
-    }
-  }
 }
