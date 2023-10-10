@@ -1,11 +1,10 @@
 <script lang="ts">
 	import P5, { type Sketch } from 'p5-svelte';
 	import p5 from 'p5';
-	import { PlayCircle, StopCircle, RotateCcw } from 'lucide-svelte';
+	import { PlayCircle, StopCircle, RotateCcw, Clapperboard } from 'lucide-svelte';
 	import { onMount } from 'svelte';
-	import { instance, inputError } from '$lib/stores/codeStore';
+	import { instance, inputError, outputStore } from '$lib/stores/codeStore';
 
-	export let output: string = '';
 	let sketch: Sketch | undefined;
 	let isPlaying = true;
 	let p5Instance: P5 | undefined;
@@ -29,7 +28,7 @@
 
 	onMount(() => {
 		try {
-			sketch = new Function(instance, output) as Sketch;
+			sketch = new Function(instance, $outputStore ?? '') as Sketch;
 		} catch (error) {
 			if (error instanceof Error) {
 				inputError.set(error.message);
@@ -93,14 +92,15 @@
 				<PlayCircle size={48} strokeWidth={1} absoluteStrokeWidth={true} />
 			{/if}
 		</button>
-		<button
-			on:click={restartSketch}
-			class="w-12 flex justify-center items-center aspect-square rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all m-2 shadow-[2px_2px_#282825] border border-[#282825]"
-		>
-			<RotateCcw size={32} strokeWidth={1} absoluteStrokeWidth={true} />
-		</button>
-		<div class="flex-grow"></div>
 		{#if isPlaying}
+			<button
+				on:click={restartSketch}
+				class="w-12 flex justify-center items-center aspect-square rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all m-2 shadow-[2px_2px_#282825] border border-[#282825]"
+			>
+				<RotateCcw size={32} strokeWidth={1} absoluteStrokeWidth={true} />
+			</button>
+			<div class="flex-grow"></div>
+
 			<span class="font-mono justify-self-end mr-4 bg-base-100 px-2 py-1 rounded-lg">
 				FPS: {Math.floor(frameRate ?? 0)}
 			</span>
@@ -108,8 +108,8 @@
 	</div>
 
 	{#key sketchKey}
-		{#if isPlaying}
-			<div class="py-2 flex justify-center items-center flex-grow overflow-hidden">
+		<div class="py-2 flex flex-col justify-center items-center flex-grow overflow-hidden">
+			{#if isPlaying}
 				<P5
 					{sketch}
 					parentDivStyle="border: 1px solid #000"
@@ -117,7 +117,10 @@
 					on:ref={handleRef}
 					on:instance={handleInstance}
 				/>
-			</div>
-		{/if}
+			{:else}
+				<Clapperboard size={128} strokeWidth={1} absoluteStrokeWidth={true} />
+				<p>Sketch will play here</p>
+			{/if}
+		</div>
 	{/key}
 </div>

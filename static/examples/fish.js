@@ -37,7 +37,7 @@ class Fish {
     this.velocity = createVector(random(-1, 1), random(-1, 1));
     this.pos = createVector(x, y);
     this.r = 3.0;
-    this.maxspeed = 3; // Maximum speed
+    this.maxspeed = 2; // Maximum speed
     this.maxforce = 0.05; // Maximum steering force
     this.points = [];
     this.col = random(255);

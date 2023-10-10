@@ -110,7 +110,7 @@
 					/>
 				{:else}
 					{#key $outputStore}
-						<Preview output={$outputStore} />
+						<Preview />
 					{/key}
 				{/if}
 			</div>
