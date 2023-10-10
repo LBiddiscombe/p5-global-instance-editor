@@ -1,4 +1,4 @@
 type Example = {
   name: string;
-  code: string;
+  input: string;
 }
