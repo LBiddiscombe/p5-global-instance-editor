@@ -16,7 +16,7 @@
 	let sketch: Sketch;
 	let selectedExample = '';
 
-	function handleClickExample(example) {
+	function handleClickExample(example: Example) {
 		inputStore.set(example.input);
 		selectedExample = example.name;
 	}
