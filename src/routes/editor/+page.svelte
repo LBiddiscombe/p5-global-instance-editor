@@ -12,10 +12,14 @@
 
 	export let data;
 
-	console.log(data);
-
 	let isEditorActive = true;
 	let sketch: Sketch;
+	let selectedExample = '';
+
+	function handleClickExample(example) {
+		inputStore.set(example.input);
+		selectedExample = example.name;
+	}
 
 	onMount(() => {
 		if ($inputStore === '') {
@@ -45,9 +49,11 @@
 			<p class="h-10 flex items-center text-sm px-1">Examples</p>
 			<ul class="flex flex-col overflow-auto h-full mt-4 gap-2">
 				{#each data.examples as example}
-					<li class="self-start border border-base-content rounded">
-						<button class="btn btn-xs" on:click={() => inputStore.set(example.input)}
-							>{example.name}</button
+					<li class="self-start">
+						<button
+							class="btn btn-xs rounded"
+							class:btn-primary={example.name === selectedExample}
+							on:click={() => handleClickExample(example)}>{example.name}</button
 						>
 					</li>
 				{/each}
