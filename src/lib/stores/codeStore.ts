@@ -7,10 +7,10 @@ let previousOutput: string;
 export const instance = '_p5';
 export const inputStore = storage(writable(''), 'input');
 export const inputError = writable('');
-export const outputStore = derived([inputStore], async ([$input]) => {
+export const outputStore = derived([inputStore], ([$input]) => {
   let output;
   try {
-    output = await convert($input, instance);
+    output = convert($input, instance);
     previousOutput = output ?? '';
     inputError.set('');
   } catch (error) {

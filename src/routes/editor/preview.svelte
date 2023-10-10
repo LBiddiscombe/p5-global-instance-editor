@@ -5,12 +5,21 @@
 	import { onMount } from 'svelte';
 	import { instance, inputError } from '$lib/stores/codeStore';
 
-	export let output: string;
+	export let output: string = '';
 	let sketch: Sketch | undefined;
 	let isPlaying = true;
 	let p5Instance: P5 | undefined;
 	let p5Ref: HTMLDivElement | undefined;
 	let sketchKey = Date.now();
+
+	function cleanUpSketch() {
+		if (p5Ref && p5Instance) {
+			p5Instance.remove();
+			p5Instance = undefined;
+			p5Ref.remove();
+			p5Ref = undefined;
+		}
+	}
 
 	const handleError = (error: ErrorEvent) => {
 		error.preventDefault();
@@ -18,14 +27,12 @@
 	};
 
 	onMount(() => {
-		if (output) {
-			try {
-				sketch = new Function(instance, output) as Sketch;
-			} catch (error) {
-				if (error instanceof Error) {
-					inputError.set(error.message);
-					sketch = undefined;
-				}
+		try {
+			sketch = new Function(instance, output) as Sketch;
+		} catch (error) {
+			if (error instanceof Error) {
+				inputError.set(error.message);
+				sketch = undefined;
 			}
 		}
 
@@ -33,42 +40,27 @@
 
 		return () => {
 			window.removeEventListener('error', handleError);
-			if (p5Ref && p5Instance) {
-				p5Instance.remove();
-				p5Instance = undefined;
-				p5Ref.remove();
-				p5Ref = undefined;
-			}
+			cleanUpSketch();
 		};
 	});
 
 	function togglePlaying() {
 		isPlaying = !isPlaying;
-		if (!isPlaying && p5Ref && p5Instance) {
-			p5Instance.remove();
-			p5Instance = undefined;
-			p5Ref.remove();
-			p5Ref = undefined;
-		}
+		cleanUpSketch();
 	}
 
 	function restartSketch() {
-		if (p5Ref && p5Instance) {
-			p5Instance.remove();
-			p5Instance = undefined;
-			p5Ref.remove();
-			p5Ref = undefined;
-		}
+		cleanUpSketch();
 		sketchKey = Date.now();
 	}
 
 	$: console.log(`p5 Version: ${p5.prototype.VERSION}`);
 
-	function gotRef(e: CustomEvent) {
+	function handleRef(e: CustomEvent) {
 		p5Ref = e.detail;
 	}
 
-	function gotInstance(e: CustomEvent) {
+	function handleInstance(e: CustomEvent) {
 		p5Instance = e.detail;
 		const parentNode = p5Ref;
 		const container = parentNode && (parentNode.parentNode as HTMLDivElement);
@@ -102,19 +94,18 @@
 			<RotateCcw size={32} strokeWidth={1} absoluteStrokeWidth={true} />
 		</button>
 	</div>
-	{#if sketch}
-		{#key sketchKey}
-			{#if isPlaying}
-				<div class="py-2 flex justify-center items-center flex-grow overflow-hidden">
-					<P5
-						{sketch}
-						parentDivStyle="border: 1px solid #000"
-						debug={true}
-						on:ref={gotRef}
-						on:instance={gotInstance}
-					/>
-				</div>
-			{/if}
-		{/key}
-	{/if}
+
+	{#key sketchKey}
+		{#if isPlaying}
+			<div class="py-2 flex justify-center items-center flex-grow overflow-hidden">
+				<P5
+					{sketch}
+					parentDivStyle="border: 1px solid #000"
+					debug={true}
+					on:ref={handleRef}
+					on:instance={handleInstance}
+				/>
+			</div>
+		{/if}
+	{/key}
 </div>

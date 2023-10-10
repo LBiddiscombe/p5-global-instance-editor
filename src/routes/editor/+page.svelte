@@ -90,29 +90,29 @@
 				>
 			</div>
 			<div class="border border-black flex-grow rounded-2xl flat-shadow m-1 overflow-auto">
-				{#await $outputStore then output}
-					{#if isEditorActive}
-						<CodeMirror
-							value={output}
-							lang={javascript()}
-							readonly
-							basic={false}
-							theme={clouds}
-							class="h-full"
-							styles={{
-								'&': {
-									height: '100%',
-									overflow: 'auto',
-									borderRadius: '1rem',
-									padding: '0.5rem',
-									background: '#FFFFFF77'
-								}
-							}}
-						/>
-					{:else if output}
-						<Preview {output} />
-					{/if}
-				{/await}
+				{#if isEditorActive}
+					<CodeMirror
+						value={$outputStore}
+						lang={javascript()}
+						readonly
+						basic={false}
+						theme={clouds}
+						class="h-full"
+						styles={{
+							'&': {
+								height: '100%',
+								overflow: 'auto',
+								borderRadius: '1rem',
+								padding: '0.5rem',
+								background: '#FFFFFF77'
+							}
+						}}
+					/>
+				{:else}
+					{#key $outputStore}
+						<Preview output={$outputStore} />
+					{/key}
+				{/if}
 			</div>
 		</div>
 	</div>

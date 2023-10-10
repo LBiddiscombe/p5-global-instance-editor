@@ -2,7 +2,7 @@ import * as babel from '@babel/standalone';
 import type { NodePath, types as BabelTypes } from '@babel/core';
 import { p5scopeFuncs, p5vars, p5funcs, p5Instance } from './p5-reference';
 
-export async function convert(code: string, instance: string) {
+export function convert(code: string, instance: string) {
 
   try {
     const wrapP5Functions = function (babel: any) {
