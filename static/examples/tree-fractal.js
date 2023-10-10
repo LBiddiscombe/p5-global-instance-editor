@@ -8,8 +8,8 @@ let leaves = [];
 function setup() {
   createCanvas(600, 400);
 
+  noiseSeed(floor(random(1000)));
   trunkCount = floor(random(4)) + 1;
-  //noiseSeed(0);
 }
 
 function draw() {

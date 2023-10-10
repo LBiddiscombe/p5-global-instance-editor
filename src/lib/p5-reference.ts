@@ -27,6 +27,7 @@ const p5callFuncs = [
   'resizeCanvas',
   'noCanvas',
   'blendMode',
+  'drawingContext',
 
   // Color.Settings
   'background',
@@ -344,7 +345,6 @@ const p5vars = [
   'windowHeight',
   'width',
   'height',
-  'drawingContext',
 
   // Events.Mobile
   'deviceOrientation',
