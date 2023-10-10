@@ -11,6 +11,7 @@
 	let p5Instance: P5 | undefined;
 	let p5Ref: HTMLDivElement | undefined;
 	let sketchKey = Date.now();
+	let frameRate = 0;
 
 	function cleanUpSketch() {
 		if (p5Ref && p5Instance) {
@@ -36,10 +37,15 @@
 			}
 		}
 
+		const frInterval = setInterval(() => {
+			frameRate = p5Instance?._frameRate;
+		}, 1000);
+
 		window.addEventListener('error', handleError);
 
 		return () => {
 			window.removeEventListener('error', handleError);
+			clearInterval(frInterval);
 			cleanUpSketch();
 		};
 	});
@@ -76,7 +82,7 @@
 </script>
 
 <div class="h-full flex flex-col relative">
-	<div class="absolute flex">
+	<div class="absolute flex items-center w-full">
 		<button
 			on:click={togglePlaying}
 			class="max-w-fit rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all m-2 shadow-[2px_2px_#282825] border border-[#282825]"
@@ -93,6 +99,12 @@
 		>
 			<RotateCcw size={32} strokeWidth={1} absoluteStrokeWidth={true} />
 		</button>
+		<div class="flex-grow"></div>
+		{#if isPlaying}
+			<span class="font-mono justify-self-end mr-4 bg-base-100 px-2 py-1 rounded-lg">
+				FPS: {Math.floor(frameRate ?? 0)}
+			</span>
+		{/if}
 	</div>
 
 	{#key sketchKey}
