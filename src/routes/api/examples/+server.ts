@@ -15,6 +15,13 @@ async function getExamples() {
     }
   })
 
+  const firstExampleName = 'empty'
+  const foundIdx = examples.findIndex(el => el.name === firstExampleName)
+  const foundExample = examples.find(el => el.name === firstExampleName)
+  if (foundExample && foundIdx !== -1) {
+    examples.splice(foundIdx, 1)
+    examples.unshift(foundExample)
+  }
 
   return { examples };
 }
