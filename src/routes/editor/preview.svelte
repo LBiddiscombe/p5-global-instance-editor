@@ -100,7 +100,7 @@
 				<RotateCcw size={32} strokeWidth={1} absoluteStrokeWidth={true} />
 			</button>
 			<div class="flex-grow"></div>
-			<span class="font-mono justify-self-end mr-4 px-2 py-1 rounded-lg">
+			<span class="font-mono self-end justify-self-end mr-4 px-2 py-1 rounded-lg">
 				FPS: {Math.floor(frameRate ?? 0)}
 			</span>
 		{/if}
