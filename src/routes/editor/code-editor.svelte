@@ -1,18 +1,10 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import CodeMirror from 'svelte-codemirror-editor';
 	import { javascript } from '@codemirror/lang-javascript';
 	import { clouds } from 'thememirror';
-	import { starterCode } from './starter-code';
 	import { inputStore, outputStore } from '$lib/stores/codeStore';
 
 	let isShowingOutput = false;
-
-	onMount(() => {
-		if ($inputStore === '') {
-			inputStore.set(starterCode);
-		}
-	});
 </script>
 
 <div class="flex flex-col overflow-auto h-full">

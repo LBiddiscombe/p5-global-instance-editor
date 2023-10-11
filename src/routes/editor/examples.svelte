@@ -1,13 +1,15 @@
 <script lang="ts">
-	import { inputStore } from '$lib/stores/codeStore';
+	import { inputStore, selectedExample } from '$lib/stores/codeStore';
 
 	export let examples: Example[];
 
-	let selectedExample = '';
+	if ($selectedExample === '') {
+		handleClickExample(examples[0]);
+	}
 
 	function handleClickExample(example: Example) {
 		inputStore.set(example.input);
-		selectedExample = example.name;
+		selectedExample.set(example.name);
 	}
 </script>
 
@@ -18,7 +20,7 @@
 			<li class="self-start">
 				<button
 					class="btn btn-xs rounded"
-					class:btn-primary={example.name === selectedExample}
+					class:btn-primary={example.name === $selectedExample}
 					on:click={() => handleClickExample(example)}>{example.name}</button
 				>
 			</li>
