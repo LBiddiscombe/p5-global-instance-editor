@@ -21,7 +21,7 @@ export function convert(code: string, instance: string) {
           Identifier(path: NodePath<BabelTypes.Identifier>) {
             const node = path.node;
             if ([...p5vars, ...p5funcs].includes(node.name)) {
-              if (path.parent.type !== 'MemberExpression' || ['pixels', 'drawingContext'].includes(node.name)) {
+              if ((path.parent.type !== 'MemberExpression' && path.parent.type !== 'VariableDeclarator') || ['pixels', 'drawingContext'].includes(node.name)) {
                 node.name = `${instance}.${node.name}`
               }
             } else if ([...p5Instance].includes('p5.' + node.name)) {
