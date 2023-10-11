@@ -31,7 +31,7 @@
 			sketch = new Function(instance, $outputStore ?? '') as Sketch;
 		} catch (error) {
 			if (error instanceof Error) {
-				inputError.set(error.message);
+				inputError.set(`Runtime Error: ${error.message}`);
 				sketch = undefined;
 			}
 		}
@@ -80,47 +80,51 @@
 	}
 </script>
 
-<div class="h-full flex flex-col relative">
-	<div class="absolute flex items-center w-full">
-		<button
-			on:click={togglePlaying}
-			class="max-w-fit rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all m-2 shadow-[2px_2px_#282825] border border-[#282825]"
-		>
-			{#if isPlaying}
-				<StopCircle size={48} strokeWidth={1} absoluteStrokeWidth={true} />
-			{:else}
-				<PlayCircle size={48} strokeWidth={1} absoluteStrokeWidth={true} />
-			{/if}
-		</button>
-		{#if isPlaying}
-			<button
-				on:click={restartSketch}
-				class="w-12 flex justify-center items-center aspect-square rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all m-2 shadow-[2px_2px_#282825] border border-[#282825]"
-			>
-				<RotateCcw size={32} strokeWidth={1} absoluteStrokeWidth={true} />
-			</button>
-			<div class="flex-grow"></div>
+<div class="flex flex-col overflow-auto h-full">
+	<div class="border border-black flex-grow rounded-2xl flat-shadow m-1 overflow-auto">
+		<div class="h-full flex flex-col relative">
+			<div class="absolute flex items-center w-full">
+				<button
+					on:click={togglePlaying}
+					class="max-w-fit rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all m-2 shadow-[2px_2px_#282825] border border-[#282825]"
+				>
+					{#if isPlaying}
+						<StopCircle size={48} strokeWidth={1} absoluteStrokeWidth={true} />
+					{:else}
+						<PlayCircle size={48} strokeWidth={1} absoluteStrokeWidth={true} />
+					{/if}
+				</button>
+				{#if isPlaying}
+					<button
+						on:click={restartSketch}
+						class="w-12 flex justify-center items-center aspect-square rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all m-2 shadow-[2px_2px_#282825] border border-[#282825]"
+					>
+						<RotateCcw size={32} strokeWidth={1} absoluteStrokeWidth={true} />
+					</button>
+					<div class="flex-grow"></div>
 
-			<span class="font-mono justify-self-end mr-4 bg-base-100 px-2 py-1 rounded-lg">
-				FPS: {Math.floor(frameRate ?? 0)}
-			</span>
-		{/if}
-	</div>
+					<span class="font-mono justify-self-end mr-4 bg-base-100 px-2 py-1 rounded-lg">
+						FPS: {Math.floor(frameRate ?? 0)}
+					</span>
+				{/if}
+			</div>
 
-	{#key sketchKey}
-		<div class="py-2 flex flex-col justify-center items-center flex-grow overflow-hidden">
-			{#if isPlaying}
-				<P5
-					{sketch}
-					parentDivStyle="border: 1px solid #000"
-					debug={true}
-					on:ref={handleRef}
-					on:instance={handleInstance}
-				/>
-			{:else}
-				<Clapperboard size={128} strokeWidth={1} absoluteStrokeWidth={true} />
-				<p>Sketch will play here</p>
-			{/if}
+			{#key sketchKey}
+				<div class="py-2 flex flex-col justify-center items-center flex-grow overflow-hidden">
+					{#if isPlaying}
+						<P5
+							{sketch}
+							parentDivStyle="border: 1px solid #000"
+							debug={true}
+							on:ref={handleRef}
+							on:instance={handleInstance}
+						/>
+					{:else}
+						<Clapperboard size={128} strokeWidth={1} absoluteStrokeWidth={true} />
+						<p>Sketch will play here</p>
+					{/if}
+				</div>
+			{/key}
 		</div>
-	{/key}
+	</div>
 </div>
