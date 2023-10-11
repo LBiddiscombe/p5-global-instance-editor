@@ -10,25 +10,25 @@ function setup() {
 function draw() {
   background(220);
 
-  const g = drawingContext.createLinearGradient(0, 0, 0, height);
-  g.addColorStop(0, color(128, 128, 255));
-  g.addColorStop(1, color(222, 222, 255));
-  drawingContext.fillStyle = g;
+  const gradient = drawingContext.createLinearGradient(0, 0, 0, height);
+  gradient.addColorStop(0, color(128, 128, 255));
+  gradient.addColorStop(1, color(222, 222, 255));
+  drawingContext.fillStyle = gradient;
   noStroke();
   rect(0, 0, width, height);
 
-  for (let c = 0; c < clouds; c++) {
-    const x = random(width);
-    const y = random(height / 2);
-    for (let i = 0; i < cores; i++) {
-      const cx = randomGaussian(0, width / 10);
-      const cy = randomGaussian(0, 15);
-      for (let j = 0; j < tufts; j++) {
-        const dx = randomGaussian(0, 20);
-        const dy = randomGaussian(0, 10);
-        const r = random(8, 16);
-        fill(map(dy, -15, 15, 255, 222), 10);
-        circle(x + +cx + dx, y + cy + dy, r);
+  for (let cloud = 0; cloud < clouds; cloud++) {
+    const cloudX = random(width);
+    const cloudY = random(height / 2);
+    for (let core = 0; core < cores; core++) {
+      const coreX = randomGaussian(0, width / 10);
+      const coreY = randomGaussian(0, 15);
+      for (let tuft = 0; tuft < tufts; tuft++) {
+        const tuftX = randomGaussian(0, 20);
+        const tuftY = randomGaussian(0, 10);
+        const radius = random(8, 16);
+        fill(map(tuftY, -15, 15, 255, 222), 10);
+        circle(cloudX + coreX + tuftX, cloudY + coreY + tuftY, radius);
       }
     }
   }

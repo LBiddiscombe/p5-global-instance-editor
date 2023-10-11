@@ -5,52 +5,54 @@ function setup() {
 function draw() {
   background(250);
 
+  const rotation = frameCount * 0.01;
+
   translate(-240, -100, 0);
   normalMaterial();
   push();
-  rotateZ(frameCount * 0.01);
-  rotateX(frameCount * 0.01);
-  rotateY(frameCount * 0.01);
+  rotateZ(rotation);
+  rotateX(rotation);
+  rotateY(rotation);
   plane(70);
   pop();
 
   translate(240, 0, 0);
   push();
-  rotateZ(frameCount * 0.01);
-  rotateX(frameCount * 0.01);
-  rotateY(frameCount * 0.01);
-  box(70, 70, 70);
+  rotateZ(rotation);
+  rotateX(rotation);
+  rotateY(rotation);
+  box(70);
   pop();
 
   translate(240, 0, 0);
   push();
-  rotateZ(frameCount * 0.01);
-  rotateX(frameCount * 0.01);
-  rotateY(frameCount * 0.01);
+  rotateZ(rotation);
+  rotateX(rotation);
+  rotateY(rotation);
   cylinder(70, 70);
   pop();
 
   translate(-240 * 2, 200, 0);
   push();
-  rotateZ(frameCount * 0.01);
-  rotateX(frameCount * 0.01);
-  rotateY(frameCount * 0.01);
+  rotateZ(rotation);
+  rotateX(rotation);
+  rotateY(rotation);
   cone(70, 70);
   pop();
 
   translate(240, 0, 0);
   push();
-  rotateZ(frameCount * 0.01);
-  rotateX(frameCount * 0.01);
-  rotateY(frameCount * 0.01);
+  rotateZ(rotation);
+  rotateX(rotation);
+  rotateY(rotation);
   torus(70, 20);
   pop();
 
   translate(240, 0, 0);
   push();
-  rotateZ(frameCount * 0.01);
-  rotateX(frameCount * 0.01);
-  rotateY(frameCount * 0.01);
+  rotateZ(rotation);
+  rotateX(rotation);
+  rotateY(rotation);
   sphere(70);
   pop();
 }
