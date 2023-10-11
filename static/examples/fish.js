@@ -69,7 +69,7 @@ class Fish {
   }
 
   show() {
-    for (var i = 0; i < this.points.length; i++) {
+    for (let i = 0; i < this.points.length; i++) {
       noStroke();
       fill(this.col);
       circle(this.points[i].x, this.points[i].y, i);

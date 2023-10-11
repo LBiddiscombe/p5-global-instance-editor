@@ -35,7 +35,10 @@ export function convert(code: string, instance: string) {
     }
 
     const output = babel.transform(code, {
-      presets: ["es2017"], plugins: [
+      targets: {
+        "browsers": ["last 2 versions"]
+      },
+      plugins: [
         wrapP5Functions
       ],
     });
