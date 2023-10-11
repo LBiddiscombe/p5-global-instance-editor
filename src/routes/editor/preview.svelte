@@ -12,26 +12,12 @@
 	let sketchKey = Date.now();
 	let frameRate = 0;
 
-	function cleanUpSketch() {
-		if (p5Ref && p5Instance) {
-			p5Instance.remove();
-			p5Instance = undefined;
-			p5Ref.remove();
-			p5Ref = undefined;
-		}
-	}
-
-	const handleError = (error: ErrorEvent) => {
-		error.preventDefault();
-		inputError.set(error.message);
-	};
-
 	onMount(() => {
 		try {
 			sketch = new Function(instance, $outputStore ?? '') as Sketch;
 		} catch (error) {
 			if (error instanceof Error) {
-				inputError.set(`Runtime Error: ${error.message}`);
+				inputError.set(`Sketch Wrap Error: ${error.message}`);
 				sketch = undefined;
 			}
 		}
@@ -48,6 +34,20 @@
 			cleanUpSketch();
 		};
 	});
+
+	function cleanUpSketch() {
+		if (p5Ref && p5Instance) {
+			p5Instance.remove();
+			p5Instance = undefined;
+			p5Ref.remove();
+			p5Ref = undefined;
+		}
+	}
+
+	const handleError = (error: ErrorEvent) => {
+		error.preventDefault();
+		inputError.set(`Runtime Error: ${error.message}`);
+	};
 
 	function togglePlaying() {
 		isPlaying = !isPlaying;
@@ -81,34 +81,32 @@
 </script>
 
 <div class="flex flex-col overflow-auto h-full">
+	<div class="flex gap-2 items-center w-full min-h-12">
+		<button
+			on:click={togglePlaying}
+			class="flex justify-center items-center aspect-square rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all shadow-[2px_2px_#282825] border border-[#282825]"
+		>
+			{#if isPlaying}
+				<StopCircle size={40} strokeWidth={1} absoluteStrokeWidth={true} />
+			{:else}
+				<PlayCircle size={40} strokeWidth={1} absoluteStrokeWidth={true} />
+			{/if}
+		</button>
+		{#if isPlaying}
+			<button
+				on:click={restartSketch}
+				class="flex justify-center items-center aspect-square rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all shadow-[2px_2px_#282825] border border-[#282825] p-1"
+			>
+				<RotateCcw size={32} strokeWidth={1} absoluteStrokeWidth={true} />
+			</button>
+			<div class="flex-grow"></div>
+			<span class="font-mono justify-self-end mr-4 px-2 py-1 rounded-lg">
+				FPS: {Math.floor(frameRate ?? 0)}
+			</span>
+		{/if}
+	</div>
 	<div class="border border-black flex-grow rounded-2xl flat-shadow m-1 overflow-auto">
-		<div class="h-full flex flex-col relative">
-			<div class="absolute flex items-center w-full">
-				<button
-					on:click={togglePlaying}
-					class="max-w-fit rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all m-2 shadow-[2px_2px_#282825] border border-[#282825]"
-				>
-					{#if isPlaying}
-						<StopCircle size={48} strokeWidth={1} absoluteStrokeWidth={true} />
-					{:else}
-						<PlayCircle size={48} strokeWidth={1} absoluteStrokeWidth={true} />
-					{/if}
-				</button>
-				{#if isPlaying}
-					<button
-						on:click={restartSketch}
-						class="w-12 flex justify-center items-center aspect-square rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all m-2 shadow-[2px_2px_#282825] border border-[#282825]"
-					>
-						<RotateCcw size={32} strokeWidth={1} absoluteStrokeWidth={true} />
-					</button>
-					<div class="flex-grow"></div>
-
-					<span class="font-mono justify-self-end mr-4 bg-base-100 px-2 py-1 rounded-lg">
-						FPS: {Math.floor(frameRate ?? 0)}
-					</span>
-				{/if}
-			</div>
-
+		<div class="h-full flex flex-col">
 			{#key sketchKey}
 				<div class="py-2 flex flex-col justify-center items-center flex-grow overflow-hidden">
 					{#if isPlaying}

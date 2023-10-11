@@ -2,6 +2,7 @@ const res = 8;
 let xoff = 0;
 let yoff = 2.5;
 let prevSy;
+const speedFactor = 0.5;
 
 let wave = [];
 let shadow = [];
@@ -25,7 +26,7 @@ function draw() {
 
   prevSy = sy;
   xoff += 0.1;
-  yoff += map(sy, 0, 1, 0.03, 0.008, true);
+  yoff += map(sy, 0, 1, 0.03 * speedFactor, 0.008, true);
 }
 
 function generateWave(sy) {

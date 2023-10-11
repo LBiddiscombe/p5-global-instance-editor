@@ -8,12 +8,12 @@
 </script>
 
 <div class="flex flex-col overflow-auto h-full">
-	<div class="flex gap-2">
+	<div class="flex gap-2 h-12 items-end min-h-12">
 		<div class="form-control">
 			<label class="label cursor-pointer flex gap-1">
-				<span class="label-text">Input</span>
+				<span class="label-text" class:font-bold={!isShowingOutput}>Input</span>
 				<input type="checkbox" class="toggle" bind:checked={isShowingOutput} />
-				<span class="label-text">Output</span>
+				<span class="label-text" class:font-bold={isShowingOutput}>Output</span>
 			</label>
 		</div>
 		<div class="flex-grow"></div>
