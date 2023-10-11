@@ -38,7 +38,7 @@ function draw() {
   textSize(32);
   text('Balls: ' + balls.length, 10, 30);
   fill(255, 127, 127);
-  text('Collision Checks per frame: ' + tot, 200, 30);
+  text('Collision checks per frame: ' + tot, 200, 30);
 
 }
 

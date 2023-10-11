@@ -1,7 +1,7 @@
 <script lang="ts">
 	import P5, { type Sketch } from 'p5-svelte';
 	import p5 from 'p5';
-	import { PlayCircle, StopCircle, RotateCcw, Clapperboard } from 'lucide-svelte';
+	import { PlayCircle, StopCircle, RotateCcw, Clapperboard, PauseCircle } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 	import { instance, inputError, outputStore } from '$lib/stores/codeStore';
 
@@ -59,6 +59,13 @@
 		sketchKey = Date.now();
 	}
 
+	function pauseSketch() {
+		if (p5Instance) {
+			if (p5Instance.isLooping()) p5Instance.noLoop();
+			else p5Instance.loop();
+		}
+	}
+
 	$: console.log(`p5 Version: ${p5.prototype.VERSION}`);
 
 	function handleRef(e: CustomEvent) {
@@ -98,6 +105,12 @@
 				class="flex justify-center items-center aspect-square rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all shadow-[2px_2px_#282825] border border-[#282825] p-1"
 			>
 				<RotateCcw size={32} strokeWidth={1} absoluteStrokeWidth={true} />
+			</button>
+			<button
+				on:click={pauseSketch}
+				class="flex justify-center items-center aspect-square rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all shadow-[2px_2px_#282825] border border-[#282825]"
+			>
+				<PauseCircle size={40} strokeWidth={1} absoluteStrokeWidth={true} />
 			</button>
 			<div class="flex-grow"></div>
 			<span class="font-mono self-end justify-self-end mr-4 px-2 py-1 rounded-lg">
