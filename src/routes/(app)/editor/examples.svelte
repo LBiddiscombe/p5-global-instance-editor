@@ -13,7 +13,7 @@
 	}
 </script>
 
-<div class="flex flex-col overflow-auto">
+<div class="flex flex-col overflow-auto md:pt-2">
 	<p class="h-10 flex items-center text-sm px-1">Examples</p>
 	<ul class="flex flex-col overflow-auto h-full mt-4 gap-2">
 		{#each examples as example}

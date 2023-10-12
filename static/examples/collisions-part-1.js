@@ -10,12 +10,11 @@ let balls = [];
 
 function setup() {
   createCanvas(800, 800);
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 20; i++) {
     const ball = new Ball(random(700) + 50, random(700) + 50, floor(random(2)) + 2);
     ball.applyForce(createVector(random(-ball.mass * 3, ball.mass * 3), random(-ball.mass * 3, ball.mass * 3)));
     balls.push(ball);
   }
-
 }
 
 function draw() {
