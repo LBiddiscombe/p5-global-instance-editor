@@ -3,10 +3,9 @@
 	import p5 from 'p5';
 	import { PlayCircle, StopCircle, RotateCcw, Clapperboard, PauseCircle } from 'lucide-svelte';
 	import { onMount } from 'svelte';
-	import { instance, inputError, outputStore } from '$lib/stores/codeStore';
+	import { instance, inputError, outputStore, isPreviewStopped } from '$lib/stores/codeStore';
 
 	let sketch: Sketch | undefined;
-	let isPlaying = true;
 	let p5Instance: P5 | undefined;
 	let p5Ref: HTMLDivElement | undefined;
 	let sketchKey = Date.now();
@@ -50,7 +49,7 @@
 	};
 
 	function togglePlaying() {
-		isPlaying = !isPlaying;
+		isPreviewStopped.set(!$isPreviewStopped);
 		cleanUpSketch();
 	}
 
@@ -93,13 +92,13 @@
 			on:click={togglePlaying}
 			class="flex justify-center items-center aspect-square rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all shadow-[2px_2px_#282825] border border-[#282825]"
 		>
-			{#if isPlaying}
-				<StopCircle size={40} strokeWidth={1} absoluteStrokeWidth={true} />
-			{:else}
+			{#if $isPreviewStopped}
 				<PlayCircle size={40} strokeWidth={1} absoluteStrokeWidth={true} />
+			{:else}
+				<StopCircle size={40} strokeWidth={1} absoluteStrokeWidth={true} />
 			{/if}
 		</button>
-		{#if isPlaying}
+		{#if !$isPreviewStopped}
 			<button
 				on:click={restartSketch}
 				class="flex justify-center items-center aspect-square rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all shadow-[2px_2px_#282825] border border-[#282825] p-1"
@@ -122,7 +121,7 @@
 		<div class="h-full flex flex-col">
 			{#key sketchKey}
 				<div class="py-2 flex flex-col justify-center items-center flex-grow overflow-hidden">
-					{#if isPlaying}
+					{#if !$isPreviewStopped}
 						<P5
 							{sketch}
 							parentDivStyle="border: 1px solid #000"

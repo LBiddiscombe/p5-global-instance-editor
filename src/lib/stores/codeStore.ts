@@ -22,4 +22,4 @@ export const outputStore = derived([inputStore], ([$input]) => {
   }
   return output;
 })
-
+export const isPreviewStopped = writable(false);

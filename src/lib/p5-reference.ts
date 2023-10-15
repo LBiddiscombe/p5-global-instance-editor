@@ -28,6 +28,7 @@ const p5callFuncs = [
   'noCanvas',
   'blendMode',
   'drawingContext',
+  'isLooping',
 
   // Color.Settings
   'background',
