@@ -1,4 +1,11 @@
-type Example = {
+type ProjectFile = {
   name: string;
-  input: string;
+  path: string;
+  content: string;
+}
+
+type Project = {
+  name: string;
+  files: ProjectFile[];
+  editorIndex: number;
 }

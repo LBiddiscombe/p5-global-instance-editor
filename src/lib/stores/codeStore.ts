@@ -1,17 +1,18 @@
-import { derived, writable } from "svelte/store"
+import { derived, writable, type Writable } from "svelte/store"
 import { storage } from "svelte-legos";;
 import { convert } from "$lib/converter-babel";
 
 let previousOutput: string;
 
 export const instance = '_p5';
-export const selectedExample = storage(writable(''), 'selectedExample');
+export const selectedProject: Writable<Project> = storage(writable(), 'selectedProject');
 export const inputStore = storage(writable(''), 'input');
 export const inputError = writable('');
-export const outputStore = derived([inputStore], ([$input]) => {
+export const outputStore = derived([inputStore, selectedProject], ([$input, $selectedProject]) => {
   let output;
   try {
-    output = convert($input, instance);
+    const allFiles = $selectedProject.files.map(file => file.content).join('\n');
+    output = convert(allFiles, instance);
     previousOutput = output ?? '';
     inputError.set('');
   } catch (error) {

@@ -2,7 +2,7 @@
 	import CodeMirror from 'svelte-codemirror-editor';
 	import { javascript } from '@codemirror/lang-javascript';
 	import { clouds } from 'thememirror';
-	import { inputStore, outputStore } from '$lib/stores/codeStore';
+	import { inputStore, outputStore, selectedProject } from '$lib/stores/codeStore';
 
 	let isShowingOutput = false;
 </script>
@@ -21,7 +21,7 @@
 	<div class="border border-black h-full rounded-2xl flat-shadow m-1 overflow-auto">
 		{#if !isShowingOutput}
 			<CodeMirror
-				bind:value={$inputStore}
+				bind:value={$selectedProject.files[$selectedProject.editorIndex].content}
 				lang={javascript()}
 				theme={clouds}
 				class="h-full"
