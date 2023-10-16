@@ -1,54 +1,50 @@
 import { json } from '@sveltejs/kit';
 
 async function getExamples() {
+	const paths = import.meta.glob('/static/examples/**/*.js', { as: 'raw', eager: true });
 
-  const paths = import.meta.glob('/static/examples/**/*.js', { as: 'raw', eager: true });
+	const folderGroups: { [name: string]: { name: string; path: string; content: string }[] } = {};
 
-  const folderGroups: { [name: string]: { name: string, path: string, content: string }[] } = {};
+	for (const path in paths) {
+		const parts = path.split('/');
+		const folderName = parts[parts.length - 2];
+		const fileName = parts[parts.length - 1];
+		const content = paths[path];
 
-  for (const path in paths) {
-    const parts = path.split('/');
-    const folderName = parts[parts.length - 2];
-    const fileName = parts[parts.length - 1];
-    const content = paths[path];
+		if (!folderGroups[folderName]) {
+			folderGroups[folderName] = [];
+		}
 
-    if (!folderGroups[folderName]) {
-      folderGroups[folderName] = [];
-    }
+		folderGroups[folderName].push({
+			name: fileName,
+			path,
+			content
+		});
+	}
 
-    folderGroups[folderName].push({
-      name: fileName,
-      path,
-      content
-    });
-  }
+	const examples = Object.entries(folderGroups).map(([name, files]) => {
+		// make the sketch the first file in the list
+		const foundIdx = files.findIndex((el) => el.name === 'sketch.js');
+		const foundExample = files.find((el) => el.name === 'sketch.js');
+		if (foundExample && foundIdx !== -1) {
+			files.splice(foundIdx, 1);
+			files.unshift(foundExample);
+		}
 
-  const examples = Object.entries(folderGroups).map(([name, files]) => {
+		return {
+			name,
+			files
+		};
+	});
 
-    // make the sketch the first file in the list
-    const foundIdx = files.findIndex(el => el.name === 'sketch.js')
-    const foundExample = files.find(el => el.name === 'sketch.js')
-    if (foundExample && foundIdx !== -1) {
-      files.splice(foundIdx, 1)
-      files.unshift(foundExample)
-    }
-
-    return {
-      name,
-      files
-    };
-  });
-
-
-  return { examples };
+	return { examples };
 }
 
 export async function GET() {
-  const { examples } = await getExamples();
+	const { examples } = await getExamples();
 
-  return json(examples);
+	return json(examples);
 }
-
 
 /*
   const examples = Object.entries(paths).map(([name, code]) => {

@@ -86,11 +86,11 @@
 	}
 </script>
 
-<div class="flex flex-col overflow-auto h-full">
-	<div class="flex gap-2 items-center w-full min-h-12">
+<div class="flex h-full flex-col overflow-auto">
+	<div class="min-h-12 flex w-full items-center gap-2">
 		<button
 			on:click={togglePlaying}
-			class="flex justify-center items-center aspect-square rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all shadow-[2px_2px_#282825] border border-[#282825]"
+			class="flex aspect-square items-center justify-center rounded-full border border-[#282825] bg-yellow-400 shadow-[2px_2px_#282825] transition-all hover:bg-yellow-300 hover:shadow-[4px_4px_#282825]"
 		>
 			{#if $isPreviewStopped}
 				<PlayCircle size={40} strokeWidth={1} absoluteStrokeWidth={true} />
@@ -101,26 +101,26 @@
 		{#if !$isPreviewStopped}
 			<button
 				on:click={restartSketch}
-				class="flex justify-center items-center aspect-square rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all shadow-[2px_2px_#282825] border border-[#282825] p-1"
+				class="flex aspect-square items-center justify-center rounded-full border border-[#282825] bg-yellow-400 p-1 shadow-[2px_2px_#282825] transition-all hover:bg-yellow-300 hover:shadow-[4px_4px_#282825]"
 			>
 				<RotateCcw size={32} strokeWidth={1} absoluteStrokeWidth={true} />
 			</button>
 			<button
 				on:click={pauseSketch}
-				class="flex justify-center items-center aspect-square rounded-full bg-yellow-400 hover:bg-yellow-300 hover:shadow-[4px_4px_#282825] transition-all shadow-[2px_2px_#282825] border border-[#282825]"
+				class="flex aspect-square items-center justify-center rounded-full border border-[#282825] bg-yellow-400 shadow-[2px_2px_#282825] transition-all hover:bg-yellow-300 hover:shadow-[4px_4px_#282825]"
 			>
 				<PauseCircle size={40} strokeWidth={1} absoluteStrokeWidth={true} />
 			</button>
 			<div class="flex-grow"></div>
-			<span class="font-mono self-end justify-self-end mr-4 px-2 py-1 rounded-lg">
+			<span class="mr-4 self-end justify-self-end rounded-lg px-2 py-1 font-mono">
 				FPS: {Math.floor(frameRate ?? 0)}
 			</span>
 		{/if}
 	</div>
-	<div class="border border-black flex-grow rounded-2xl flat-shadow m-1 overflow-auto">
-		<div class="h-full flex flex-col">
+	<div class="flat-shadow m-1 flex-grow overflow-auto rounded-2xl border border-black">
+		<div class="flex h-full flex-col">
 			{#key sketchKey}
-				<div class="py-2 flex flex-col justify-center items-center flex-grow overflow-hidden">
+				<div class="flex flex-grow flex-col items-center justify-center overflow-hidden py-2">
 					{#if !$isPreviewStopped}
 						<P5
 							{sketch}

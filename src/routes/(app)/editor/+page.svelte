@@ -11,7 +11,7 @@
 	let sketch: Sketch;
 </script>
 
-<div class="grid lg:grid-cols-[auto_1fr_1fr] gap-4 flex-grow overflow-auto">
+<div class="grid flex-grow gap-4 overflow-auto lg:grid-cols-[auto_1fr_1fr]">
 	<Examples examples={data.examples} />
 	<CodeEditor />
 	{#key $outputStore}

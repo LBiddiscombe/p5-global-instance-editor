@@ -5,7 +5,7 @@
 
 <div class="text-xs">
 	{#if $errorMessage}
-		<span class="font-mono flex gap-2 items-center bg-red-500 text-white px-2 py-1">
+		<span class="flex items-center gap-2 bg-red-500 px-2 py-1 font-mono text-white">
 			<AlertOctagon size={16} />
 			{$errorMessage}
 		</span>

@@ -4,12 +4,12 @@
 	import { Superscript } from 'lucide-svelte';
 </script>
 
-<div class="container mx-auto h-screen relative pt-[16vh] flex flex-col overflow-hidden">
+<div class="container relative mx-auto flex h-screen flex-col overflow-hidden pt-[16vh]">
 	<div
-		class="px-4 py-8 max-w-xl mx-auto flex flex-col bg-white flat-shadow border border-[#282825] rounded-2xl"
+		class="flat-shadow mx-auto flex max-w-xl flex-col rounded-2xl border border-[#282825] bg-white px-4 py-8"
 	>
 		<div class="flex flex-col">
-			<h1 class="text-3xl font-bold text-center flex flex-col gap-2 items-center">
+			<h1 class="flex flex-col items-center gap-2 text-center text-3xl font-bold">
 				<div>
 					<Logo size={80} />
 				</div>
@@ -18,24 +18,24 @@
 					global to instance <span class="striked">editor</span><span class="align-super">*</span>
 				</div>
 			</h1>
-			<p class="mb-8 text-gray-600 text-center leading-7">
+			<p class="mb-8 text-center leading-7 text-gray-600">
 				Online editor that compiles to copy paste-able <span
-					class="font-mono border rounded mx-1 px-2 py-1 border-red-500">instance mode</span
+					class="mx-1 rounded border border-red-500 px-2 py-1 font-mono">instance mode</span
 				>
 				code, while you enjoy the ease of writing sketches in global mode.
 			</p>
 			<a
-				class="px-8 py-2 text-3xl border border-base-content rounded-full bg-yellow-400 hover:bg-yellow-300 shadow-[3px_3px_#282825] hover:shadow-[5px_5px_#282825] transition-all self-center"
+				class="self-center rounded-full border border-base-content bg-yellow-400 px-8 py-2 text-3xl shadow-[3px_3px_#282825] transition-all hover:bg-yellow-300 hover:shadow-[5px_5px_#282825]"
 				href="/editor">Get Started</a
 			>
 		</div>
 	</div>
 	<p class="flex justify-center py-4 text-gray-500">
-		<span class="align-super pr-1">*</span>You can only edit a single file of global p5js code, so
+		<span class="pr-1 align-super">*</span>You can only edit a single file of global p5js code, so
 		not really an editor 🫤
 	</p>
 
-	<div class="hidden lg:block w-full py-8">
+	<div class="hidden w-full py-8 lg:block">
 		<div class="flex w-full justify-center">
 			<div class="w-full max-w-2xl">
 				<FAQBubble

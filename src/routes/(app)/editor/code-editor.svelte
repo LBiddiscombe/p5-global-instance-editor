@@ -7,10 +7,10 @@
 	let isShowingOutput = false;
 </script>
 
-<div class="flex flex-col overflow-auto h-full">
-	<div class="flex gap-2 h-12 items-end min-h-12">
+<div class="flex h-full flex-col overflow-auto">
+	<div class="min-h-12 flex h-12 items-end gap-2">
 		<div class="form-control">
-			<label class="label cursor-pointer flex gap-1">
+			<label class="label flex cursor-pointer gap-1">
 				<span class="label-text" class:font-bold={!isShowingOutput}>Input</span>
 				<input type="checkbox" class="toggle" bind:checked={isShowingOutput} />
 				<span class="label-text" class:font-bold={isShowingOutput}>Output</span>
@@ -18,7 +18,7 @@
 		</div>
 		<div class="flex-grow"></div>
 	</div>
-	<div class="border border-black h-full rounded-2xl flat-shadow m-1 overflow-auto">
+	<div class="flat-shadow m-1 h-full overflow-auto rounded-2xl border border-black">
 		{#if !isShowingOutput}
 			<CodeMirror
 				bind:value={$selectedProject.files[$selectedProject.editorIndex].content}

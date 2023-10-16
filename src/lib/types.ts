@@ -1,11 +1,11 @@
 type ProjectFile = {
-  name: string;
-  path: string;
-  content: string;
-}
+	name: string;
+	path: string;
+	content: string;
+};
 
 type Project = {
-  name: string;
-  files: ProjectFile[];
-  editorIndex: number;
-}
+	name: string;
+	files: ProjectFile[];
+	editorIndex: number;
+};

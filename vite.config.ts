@@ -7,12 +7,14 @@ export default defineConfig({
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	},
 	optimizeDeps: {
-		exclude: ["codemirror",
-			"@codemirror/autocomplete",
-			"@codemirror/commands",
-			"@codemirror/lang-javascript",
-			"@codemirror/language",
-			"@codemirror/state",
-			"@codemirror/view"]
+		exclude: [
+			'codemirror',
+			'@codemirror/autocomplete',
+			'@codemirror/commands',
+			'@codemirror/lang-javascript',
+			'@codemirror/language',
+			'@codemirror/state',
+			'@codemirror/view'
+		]
 	}
 });
