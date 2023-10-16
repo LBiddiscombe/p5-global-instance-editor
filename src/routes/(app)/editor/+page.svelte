@@ -3,7 +3,7 @@
 	import Examples from './examples.svelte';
 	import CodeEditor from './code-editor.svelte';
 	import Preview from './preview.svelte';
-	import { outputStore } from '$lib/stores/codeStore';
+	import { outputStore, selectedProject } from '$lib/stores/codeStore';
 	import Warnings from './warnings.svelte';
 
 	export let data;
@@ -13,7 +13,7 @@
 
 <div class="grid flex-grow gap-4 overflow-auto lg:grid-cols-[auto_1fr_1fr]">
 	<Examples examples={data.examples} />
-	<CodeEditor />
+	<CodeEditor project={$selectedProject} />
 	{#key $outputStore}
 		<Preview />
 	{/key}
