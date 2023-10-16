@@ -2,7 +2,7 @@
 	import CodeMirror from 'svelte-codemirror-editor';
 	import { javascript } from '@codemirror/lang-javascript';
 	import { clouds } from 'thememirror';
-	import { inputStore, outputStore, selectedProject } from '$lib/stores/codeStore';
+	import { outputStore, selectedProject } from '$lib/stores/codeStore';
 
 	let isShowingOutput = false;
 </script>

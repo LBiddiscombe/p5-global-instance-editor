@@ -6,9 +6,8 @@ let previousOutput: string;
 
 export const instance = '_p5';
 export const selectedProject: Writable<Project> = storage(writable(), 'selectedProject');
-export const inputStore = storage(writable(''), 'input');
 export const inputError = writable('');
-export const outputStore = derived([inputStore, selectedProject], ([$input, $selectedProject]) => {
+export const outputStore = derived([selectedProject], ([$selectedProject]) => {
   let output;
   try {
     const allFiles = $selectedProject.files.map(file => file.content).join('\n');

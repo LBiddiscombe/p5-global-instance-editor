@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { inputStore, selectedProject } from '$lib/stores/codeStore';
+	import { selectedProject } from '$lib/stores/codeStore';
 
 	export let examples: Project[];
 
@@ -8,14 +8,11 @@
 	}
 
 	function handleClickExample(example: Project) {
-		const sketchFileIndex = example.files.findIndex((fn) => fn.name === 'sketch.js');
-		if (sketchFileIndex < 0) return;
-		selectedProject.set({ ...example, editorIndex: sketchFileIndex });
+		selectedProject.set({ ...example, editorIndex: 0 });
 	}
 
 	function handleClickFile(idx: number) {
 		$selectedProject.editorIndex = idx;
-		//inputStore.set(file.content);
 	}
 </script>
 
