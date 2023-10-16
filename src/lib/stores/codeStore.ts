@@ -6,18 +6,18 @@ let previousOutput: string;
 
 export const instance = '_p5';
 export const selectedProject: Writable<Project> = storage(writable(), 'selectedProject');
-export const inputError = writable('');
+export const errorMessage = writable('');
 export const outputStore = derived([selectedProject], ([$selectedProject]) => {
   let output;
   try {
     const allFiles = $selectedProject.files.map(file => file.content).join('\n');
     output = convert(allFiles, instance);
     previousOutput = output ?? '';
-    inputError.set('');
+    errorMessage.set('');
   } catch (error) {
     if (error instanceof Error) {
       output = previousOutput;
-      inputError.set(error.message);
+      errorMessage.set(error.message);
     }
   }
   return output;

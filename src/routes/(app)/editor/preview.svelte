@@ -3,7 +3,7 @@
 	import p5 from 'p5';
 	import { PlayCircle, StopCircle, RotateCcw, Clapperboard, PauseCircle } from 'lucide-svelte';
 	import { onMount } from 'svelte';
-	import { instance, inputError, outputStore, isPreviewStopped } from '$lib/stores/codeStore';
+	import { instance, errorMessage, outputStore, isPreviewStopped } from '$lib/stores/codeStore';
 
 	let sketch: Sketch | undefined;
 	let p5Instance: P5 | undefined;
@@ -16,7 +16,7 @@
 			sketch = new Function(instance, $outputStore ?? '') as Sketch;
 		} catch (error) {
 			if (error instanceof Error) {
-				inputError.set(`Sketch Wrap Error: ${error.message}`);
+				errorMessage.set(`Sketch Wrap Error: ${error.message}`);
 				sketch = undefined;
 			}
 		}
@@ -45,7 +45,7 @@
 
 	const handleError = (error: ErrorEvent) => {
 		error.preventDefault();
-		inputError.set(`Runtime Error: ${error.message}`);
+		errorMessage.set(`Runtime Error: ${error.message}`);
 	};
 
 	function togglePlaying() {
