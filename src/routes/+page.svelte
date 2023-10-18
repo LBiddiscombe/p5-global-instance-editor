@@ -31,7 +31,7 @@
 		</div>
 	</div>
 	<p class="flex justify-center py-4 text-gray-500">
-		<span class="pr-1 align-super">*</span>You can only edit a single file of global p5js code, so
+		<span class="pr-1 align-super">*</span>You can only edit a single set of global p5js code, so
 		not really an editor 🫤
 	</p>
 
