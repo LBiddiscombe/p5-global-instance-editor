@@ -5,12 +5,12 @@ import { convert } from '$lib/converter-babel';
 let previousOutput: string;
 
 export const instance = '_p5';
-export const selectedProject: Writable<Project> = storage(writable(), 'selectedProject');
+export const activeProject: Writable<Project> = storage(writable(), 'activeProject');
 export const errorMessage = writable('');
-export const outputStore = derived([selectedProject], ([$selectedProject]) => {
+export const outputStore = derived([activeProject], ([$activeProject]) => {
 	let output;
 	try {
-		const allFiles = $selectedProject.files.map((file) => file.content).join('\n');
+		const allFiles = $activeProject.files.map((file) => file.content).join('\n');
 		output = convert(allFiles, instance);
 		previousOutput = output ?? '';
 		errorMessage.set('');

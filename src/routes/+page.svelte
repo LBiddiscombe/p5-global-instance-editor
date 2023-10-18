@@ -15,7 +15,7 @@
 				</div>
 
 				<div class="my-4">
-					global to instance <span class="striked">editor</span><span class="align-super">*</span>
+					global to instance <span class="crossout">editor</span><span class="align-super">*</span>
 				</div>
 			</h1>
 			<p class="mb-8 text-center leading-7 text-gray-600">
@@ -50,7 +50,7 @@
 </div>
 
 <style>
-	.striked {
+	.crossout {
 		background: linear-gradient(
 				to left top,
 				transparent 47.75%,

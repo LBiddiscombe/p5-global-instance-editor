@@ -2,10 +2,16 @@
 	import CodeMirror from 'svelte-codemirror-editor';
 	import { javascript } from '@codemirror/lang-javascript';
 	import { clouds } from 'thememirror';
-	import { outputStore } from '$lib/stores/codeStore';
+	import { outputStore, activeProject } from '$lib/stores/codeStore';
 
-	export let project: Project;
 	let isShowingOutput = false;
+
+	function handleChange(event: CustomEvent) {
+		// check project is to be persisted and save it here...
+		if ($activeProject.persist) {
+			console.log('saving changes');
+		}
+	}
 </script>
 
 <div class="flex h-full flex-col overflow-auto">
@@ -22,7 +28,8 @@
 	<div class="flat-shadow m-1 h-full overflow-auto rounded-2xl border border-black">
 		{#if !isShowingOutput}
 			<CodeMirror
-				bind:value={project.files[project.editorIndex].content}
+				bind:value={$activeProject.files[$activeProject.editorIndex].content}
+				on:change={handleChange}
 				lang={javascript()}
 				theme={clouds}
 				class="h-full"
