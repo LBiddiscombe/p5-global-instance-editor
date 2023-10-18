@@ -17,7 +17,7 @@
 </script>
 
 <div class="collapse collapse-arrow overflow-auto">
-	<input type="checkbox" />
+	<input type="checkbox" checked />
 	<div class="collapse-title font-medium">Examples</div>
 	<div class="collapse-content">
 		<div class="join join-vertical w-full">

@@ -1,6 +1,7 @@
 import { derived, writable, type Writable } from 'svelte/store';
 import { storage } from 'svelte-legos';
 import { convert } from '$lib/converter-babel';
+import { newProject } from './newProject';
 
 let previousOutput: string;
 
@@ -23,3 +24,9 @@ export const outputStore = derived([activeProject], ([$activeProject]) => {
 	return output;
 });
 export const isPreviewStopped = writable(false);
+
+export const myProject: Writable<Project> = storage(writable(newProject), newProject.name);
+
+export function persistProject(project: Project) {
+	localStorage.setItem(project.name, JSON.stringify(project));
+}

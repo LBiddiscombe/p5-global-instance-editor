@@ -2,20 +2,23 @@
 	import CodeMirror from 'svelte-codemirror-editor';
 	import { javascript } from '@codemirror/lang-javascript';
 	import { clouds } from 'thememirror';
-	import { outputStore, activeProject } from '$lib/stores/codeStore';
+	import { outputStore, activeProject, persistProject } from '$lib/stores/codeStore';
 
 	let isShowingOutput = false;
 
 	function handleChange(event: CustomEvent) {
 		// check project is to be persisted and save it here...
 		if ($activeProject.persist) {
-			console.log('saving changes');
+			persistProject($activeProject);
 		}
 	}
 </script>
 
 <div class="flex h-full flex-col overflow-auto">
 	<div class="min-h-12 flex h-12 items-end gap-2">
+		<span class="flex h-10 items-center pl-2 text-sm">
+			{$activeProject.name} | {$activeProject.files[$activeProject.editorIndex].name}
+		</span>
 		<div class="form-control">
 			<label class="label flex cursor-pointer gap-1">
 				<span class="label-text" class:font-bold={!isShowingOutput}>Input</span>
