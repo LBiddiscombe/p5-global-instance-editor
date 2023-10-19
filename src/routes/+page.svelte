@@ -4,7 +4,7 @@
 	import { Superscript } from 'lucide-svelte';
 </script>
 
-<div class="container relative mx-auto flex h-screen flex-col overflow-hidden pt-[16vh]">
+<div class="container relative mx-auto flex h-screen flex-col overflow-hidden px-12 pt-[8vw]">
 	<div
 		class="flat-shadow mx-auto flex max-w-xl flex-col rounded-2xl border border-[#282825] bg-white px-4 py-8"
 	>
@@ -35,7 +35,7 @@
 		not really an editor 🫤
 	</p>
 
-	<div class="hidden w-full py-8 lg:block">
+	<div class="w-full py-8">
 		<div class="flex w-full justify-center">
 			<div class="w-full max-w-2xl">
 				<FAQBubble

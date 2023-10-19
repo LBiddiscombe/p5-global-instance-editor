@@ -7,7 +7,7 @@
 	<title>p5.js global to instance editor</title>
 </svelte:head>
 
-<div class="flex flex-col gap-4 p-4 text-base-content md:h-screen">
+<div class="flex flex-col gap-2 px-4 py-2 text-base-content md:h-screen">
 	<Header />
 	<slot />
 </div>
