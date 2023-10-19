@@ -129,7 +129,7 @@
 			{/each}
 		</ul>
 		<div class="flex-grow"></div>
-		<p class="w-64 rounded-lg bg-yellow-300 p-2 text-center text-sm">
+		<p class="rounded-lg bg-yellow-300 p-2 text-center text-sm md:w-64">
 			Under Construction - Just the one personal sketch project synced to local storage for now,
 			plus the examples below
 		</p>
