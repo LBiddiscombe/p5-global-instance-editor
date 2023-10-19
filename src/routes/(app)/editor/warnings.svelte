@@ -3,11 +3,11 @@
 	import { errorMessage } from '$lib/stores/codeStore';
 </script>
 
-<div class="text-xs">
-	{#if $errorMessage}
+{#if $errorMessage}
+	<div class="fixed bottom-0 left-0 text-xs md:static md:py-2">
 		<span class="flex items-center gap-2 bg-red-500 px-2 py-1 font-mono text-white">
 			<AlertOctagon size={16} />
 			{$errorMessage}
 		</span>
-	{/if}
-</div>
+	</div>
+{/if}

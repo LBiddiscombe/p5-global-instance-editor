@@ -4,7 +4,6 @@
 	import CodeEditor from './code-editor.svelte';
 	import Preview from './preview.svelte';
 	import { outputStore } from '$lib/stores/codeStore';
-	import Warnings from './warnings.svelte';
 	import Project from './project.svelte';
 
 	export let data;
@@ -27,7 +26,6 @@
 		</div>
 	{/key}
 </div>
-<Warnings />
 
 <style>
 	@media screen and (max-width: 1280px) {

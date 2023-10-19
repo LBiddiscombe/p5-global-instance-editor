@@ -3,6 +3,7 @@
 	import { javascript } from '@codemirror/lang-javascript';
 	import { clouds } from 'thememirror';
 	import { outputStore, activeProject, persistProject } from '$lib/stores/codeStore';
+	import Warnings from './warnings.svelte';
 
 	let isShowingOutput = false;
 
@@ -64,3 +65,4 @@
 		/>
 	{/if}
 </div>
+<Warnings />
